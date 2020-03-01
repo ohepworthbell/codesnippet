@@ -1,0 +1,81 @@
+fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0;
+
+  legend {
+    display: none;
+  }
+}
+
+label {
+  display: block;
+  position: relative;
+  color: lighten($background, 35%);
+  line-height: 1rem;
+  margin: 0 0 1rem;
+  padding: 1.4rem 0 0;
+
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transition: top 0.15s, left 0.15s, color 0.15s, font-size 0.15s;
+    font-size: 0.78rem;
+  }
+
+  input:placeholder-shown ~ span,
+  textarea:placeholder-shown ~ span {
+    font-size: 1rem;
+  }
+
+  input:placeholder-shown ~ span {
+    top: calc(50% + 0.2rem);
+    left: 1.2rem;
+  }
+
+  textarea:placeholder-shown ~ span {
+    top: 2.4rem;
+    left: 1.2rem;
+  }
+}
+
+textarea,
+input,
+select {
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: 0;
+  border-radius: 0.2rem;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 1rem;
+  background: linear-gradient(-145deg, lighten($background, 3%), lighten($background, 5%));
+  box-shadow: 0.3em 0.5em 2em darken($background, 3%), -0.3em -0.5em 2em lighten($background, 3%);
+  color: $text;
+}
+
+select option {
+  background: lighten($background, 5%);
+  color: $text;
+
+  &:disabled {
+    color: lighten($background, 25%);
+  }
+}
+
+textarea {
+  height: 15rem;
+  resize: none;
+  padding: 1rem 1.2rem;
+  font-family: monospace;
+}
+
+input,
+select {
+  height: 3rem;
+  padding: 0 1.2rem;
+}

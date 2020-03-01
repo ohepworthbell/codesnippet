@@ -1,0 +1,14 @@
+// Root
+@import 'reset';
+@import 'defaults';
+
+// Set default body style
+body {
+  font-family: sans-serif;
+  font-size: 16px;
+  background: $background;
+  color: $text;
+}
+
+// Content
+@import 'content/';

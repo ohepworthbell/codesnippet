@@ -1,5 +1,6 @@
 import _id from './quickselect';
 import _bind from './bind-io';
+import _highlight from './highlight';
 
 /**
  *  Log page load (for testing)
@@ -31,8 +32,8 @@ export default class App {
    * 
    */
   monitorInputs() {
-    _bind(this.inputs.name, this.outputs.name);
-    _bind(this.inputs.code, this.outputs.code);
+    _bind(this.inputs.name, this.outputs.name, this.refreshSyntax.bind(this));
+    _bind(this.inputs.code, this.outputs.code, this.refreshSyntax.bind(this));
   }
 
   /**
@@ -56,17 +57,37 @@ export default class App {
   }
 
   /**
+   *  Apply syntax changes
+   * 
+   */
+  refreshSyntax(timeout = 1000) {
+    // Clear existing timeouts
+    if (this._timeout) clearTimeout(this._timeout);
+
+    // Create new timeout
+    this._timeout = setTimeout(() => _highlight(this.outputs.code), timeout);
+  }
+
+  /**
    *  Add syntax highlighting class
    * 
    */
   changeSyntaxHighlightClass() {
-    let output = this.outputs.code;
-
-    this.inputs.codetype.addEventListener('change', function(){
-      let selected_syntax = this.options[this.options.selectedIndex].value;
+    // Change code function
+    let _updateCodeOutput = () => {
+      let selected_syntax = this.inputs.codetype.options[this.inputs.codetype.options.selectedIndex].value;
 
       // Set appropriate class
-      output.className = selected_syntax.toLowerCase();
-    });
+      this.outputs.code.className = selected_syntax.toLowerCase();
+
+      // Refresh syntax
+      this.refreshSyntax(0);
+    };
+
+    // Monitor and change classnames as necessary
+    this.inputs.codetype.addEventListener('change', _updateCodeOutput);
+
+    // Load any initial classnames
+    _updateCodeOutput(0);
   }
 }

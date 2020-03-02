@@ -90,6 +90,7 @@ $g:
         font-family: monospace;
         min-height: 5rem;
         white-space: pre-wrap;
+        background: transparent;
 
         &:empty::before {
           content: "Enter your code to the left";
